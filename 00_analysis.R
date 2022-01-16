@@ -100,5 +100,7 @@ file.copy(
 files2zip <- dir('ecg_named', full.names = TRUE)
 zip(zipfile = 'ecg_named', files = files2zip)
 
-files2zip <- dir('ecg_raw', full.names = TRUE)
-zip(zipfile = 'ecg_raw', files = files2zip)
+# files2zip <- dir('ecg_raw', full.names = TRUE)
+# zip(zipfile = 'ecg_raw', files = files2zip)
+
+# Getting big now, so delete un-needed folder. 
