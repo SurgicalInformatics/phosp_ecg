@@ -10,7 +10,7 @@
 
 # 1. Meta-data pull for info
 # 2. Record IDs with images.
-# 3. Pull and rename aimges
+# 3. Pull and rename images
 
 
 library(RCurl)
@@ -82,7 +82,11 @@ for(record in record_list){
 # Rename files with study_id --------------------------------------------------
 ecg_upload_data = ecg_upload_data %>% 
   mutate(
+    event = stringr::str_extract(redcap_event_name, "[123]+_months"),
+    filetype = stringr::str_extract(ecg_upload, "\\.[:alpha:]+$"), # Not currently used
     filename = paste0(study_id, 
+                      "_",
+                      event, 
                       "_",
                       ecg_upload)
   )
@@ -91,3 +95,10 @@ file.copy(
   from = paste0(directory, "/", ecg_upload_data$ecg_upload), 
   to = paste0("ecg_named", "/", ecg_upload_data$filename)
 )
+
+# Zip ------------------------------------------------------------------------
+files2zip <- dir('ecg_named', full.names = TRUE)
+zip(zipfile = 'ecg_named', files = files2zip)
+
+files2zip <- dir('ecg_raw', full.names = TRUE)
+zip(zipfile = 'ecg_raw', files = files2zip)
