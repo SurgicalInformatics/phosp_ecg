@@ -58,7 +58,7 @@ ecg_upload_study_id = ecg_upload_data %>%
 record_list = ecg_upload_study_id
 field_list = c("ecg_upload")
 event_list = c("3_months_1st_resea_arm_1", "12_months_2nd_rese_arm_1")
-directory = "ecg_raw"
+directory = "ecg_raw" # Fix this to common folder!!!!!!
 
 for(record in record_list){
   for(field in field_list){
@@ -102,5 +102,7 @@ zip(zipfile = 'ecg_named', files = files2zip)
 
 # files2zip <- dir('ecg_raw', full.names = TRUE)
 # zip(zipfile = 'ecg_raw', files = files2zip)
+
+system("chown :covid /home/common/phosp/ecg/ecg_named.zip")
 
 # Getting big now, so delete un-needed folder. 
